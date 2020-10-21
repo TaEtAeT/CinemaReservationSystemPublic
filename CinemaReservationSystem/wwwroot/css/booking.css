@@ -1,0 +1,154 @@
+﻿body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#Username {
+    border: none;
+    border-bottom: 1px solid;
+}
+
+.screen {
+    width: 100%;
+    height: 20px;
+    background: #0892d0;
+    color: #fff;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+.smallBox::before {
+    content: ".";
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 10px;
+}
+
+
+.greenBox::before {
+    content: "";
+    background: #32CD32;
+    background: Green;
+}
+
+.redBox::before {
+    content: "";
+    background: #fc0e00;
+}
+
+.emptyBox::before {
+    content ="";
+    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+    background-color: #ccc;
+}
+
+.seats {
+    border: 1px solid red;
+    background: yellow;
+}
+
+
+
+.seatGap {
+    width: 40px;
+}
+
+.seatVGap {
+    height: 40px;
+}
+
+table {
+    text-align: center;
+}
+
+
+.Displaytable {
+    text-align: center;
+}
+
+    .Displaytable td, .Displaytable th {
+        border: 1px solid;
+        text-align: left;
+    }
+
+textarea {
+    border: none;
+    background: transparent;
+}
+
+
+
+input[type=checkbox] {
+    width: 0px;
+    margin-right: 18px;
+}
+
+    input[type=checkbox]:before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+        background-color: #ccc;
+    }
+
+    input[type=checkbox]:checked:before {
+        background-color: Green;
+        font-size: 15px;
+    }
+.reserved-seat {
+    background-color: red;
+    height:15px;
+    width:15px;
+   margin-right:3px;
+}
+
+input[type=checkbox]:before {
+    
+}
+
+
+.seat-legend{
+    display:flex;
+    flex-direction:row;
+    align-items:end;
+    justify-content:space-evenly;
+    //background-color:yellow;
+}
+.seats-area-container {
+    margin: 40px 0px 30px 0px;
+   // background: repeating-linear-gradient( 45deg, #e95420, #e95420 10px, #faa182 10px, #faa182 20px );
+   // padding: 5px 0px 0px 0px;
+}
+
+.seats-area {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white
+}
+
+.seats-area__seat-structure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.seats-area__row-letters {
+    //background-color: orange;
+    margin-top: 28px;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.seatStructure {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}

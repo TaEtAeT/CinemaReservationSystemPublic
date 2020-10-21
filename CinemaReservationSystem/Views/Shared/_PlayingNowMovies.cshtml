@@ -1,0 +1,155 @@
+﻿<div class="container movie-cart-area-container">
+    <div class="row">
+        @{
+            int cnt1 = 0;
+
+
+            foreach (var screening in Model.Screenings)
+            {
+                if (cnt1 % 2 == 0)
+                {
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                        <div class="movie-cart-container">
+                            <div>
+                                <div class="movie-cart__img-container">
+                                    <img  id="myImg@(screening.Id)" src="@screening.Movie.ImageUrl" class="rounded img myImg"
+                                         onclick="showModal(@(screening.Id))" />
+                                </div>
+                            </div>
+                            <div class="movie-cart-details-area">
+                                <div class="movie-cart-details-container">
+                                    <div class="movie-cart-details">
+                                        <div class="movie-cart__title">
+                                            <b>@screening.Movie.Title</b>
+                                        </div>
+                                        <div>
+                                            @screening.Movie.Genre.Name
+                                        </div>
+                                        <div>
+                                            @Html.Raw(screening.Movie.Description)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="movie-cart-button-container">
+                                    <div>
+
+                                        <a class="btn btn-secondary" href="@screening.Movie.TrailerUrl" target="_blank">
+                                            <i style="color:red" class="fab fa-youtube"></i>
+                                            Trailer
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a asp-area="Admin" asp-controller="Screening" asp-action="Details" class="btn btn-primary form-control" asp-route-movieId="@screening.MovieId">Details</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                cnt1++;
+
+
+                <div id="myModal@(screening.Id)" class="modal">
+                    <span class="close" id="close@(screening.Id)">&times;</span>
+                    <img class="modal-content" id="img@(screening.Id)">
+                    <div id="caption"></div>
+                </div>
+            }
+            int cnt2 = 0;
+            foreach (var screening in Model.Screenings)
+            {
+                if (cnt2 % 2 != 0)
+                {
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                        <div class="movie-cart-container">
+                            <div>
+                                <div class="movie-cart__img-container">
+                                    <img id="myImg@(screening.Id)" src="@screening.Movie.ImageUrl" class="rounded img myImg"
+                                         onclick="showModal(@(screening.Id))" />
+                                </div>
+                            </div>
+                            <div class="movie-cart-details-area">
+                                <div class="movie-cart-details-container">
+                                    <div class="movie-cart-details">
+                                        <div class="movie-cart__title">
+                                            <b> @screening.Movie.Title</b>
+                                        </div>
+                                        <div>
+                                            @screening.Movie.Genre.Name
+                                        </div>
+                                        <div>
+                                            @Html.Raw(screening.Movie.Description)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="movie-cart-button-container">
+                                    <div>
+                                        <a class="btn btn-secondary" href="@screening.Movie.TrailerUrl" target="_blank">
+                                            <i style="color:red;" class="fab fa-youtube"></i>
+                                            Trailer
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a asp-area="Admin" asp-controller="Screening" asp-action="Details" class="btn btn-primary form-control" asp-route-movieId="@screening.MovieId">Details</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                cnt2++;
+
+                <div id="myModal@(screening.Id)" class="modal">
+                    <span class="close" id="close@(screening.Id)">&times;</span>
+                    <img class="modal-content" id="img@(screening.Id)">
+                    <div id="caption"></div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<script>
+    function showModal(id) {
+        var modal = document.getElementById(`myModal${id}`);
+        var myImg = document.getElementById(`myImg${id}`);
+        var modalImg = document.getElementById(`img${id}`);
+
+        //var captionText = document.getElementById("caption");
+
+        modal.style.display = "block";
+        modalImg.src = myImg.src;
+       // captionText.innerHTML = this.alt;
+        // Get the <span> element that closes the modal
+        var span = document.getElementById(`close${id}`);
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+    }
+    // Get the modal
+
+@*
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+  // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+  *@
+</script>

@@ -1,0 +1,63 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<CinemaReservationSystem.Models.News>;
+@addTagHelper "*, cloudscribe.Web.Pagination"
+<h1>@ViewData["Title"]</h1>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/css/news.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="section-title">
+        <i class="arrow right"></i>
+        <div class="section-title__title">Playing Now</div>
+    </div>
+
+    @foreach (var news in Model.Data)
+    {
+        <div class="container content-container">
+            <div class="row p-1">
+                <div class="col-sm-12 news-container">
+                    <div style="">
+                        <img class="news-container__image" src="@news.ImageUrl" />
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        @news.Date
+                    </div>
+                    <div>
+                        @Html.Raw(news.ShortDescription)
+                    </div>
+                    <div>
+                        @Html.Raw(news.Content)
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @*    <cs-pager cs-paging-pagenumber="2"
+        cs-paging-totalitems="3"
+        cs-paging-pagesize="1"
+        cs-pagenumber-param="pagenumber"
+        asp-controller="News"
+        asp-action="News"></cs-pager>*@
+
+     <cs-pager cs-paging-pagesize="Model.PageSize"
+                   cs-paging-pagenumber="Model.PageNumber"
+                   cs-paging-totalitems="Model.TotalItems"
+                   cs-pagenumber-param="pageNumber"
+                   asp-controller="Home"
+                   asp-action="News"
+               cs-pager-li-current-class="page-item active"
+cs-pager-li-other-class="page-item"
+cs-pager-li-non-active-class="page-item disabled"
+cs-pager-link-current-class="page-link"
+cs-pager-link-other-class="page-link"
+               ></cs-pager>
+
+ 
+
+</body>

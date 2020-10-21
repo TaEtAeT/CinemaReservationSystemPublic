@@ -1,0 +1,45 @@
+﻿@*@model IEnumerable<CinemaReservationSystem.Models.Reservation>*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My Bookings</h1>
+@*@foreach(var reservation in Model)
+    {
+        <p>@reservation.Screening.Movie.Title @reservation.Screening.Auditorium.Name
+        @reservation.Screening.ScreeningStart @reservation.Screening.WeekDay
+        @reservation.AmountToPay
+        </p>
+        <p>Seats reserved:
+        @foreach(var seat in reservation.ReservedSeats)
+        {
+            <p> @seat.Seat.Code</p>
+        }
+
+    }*@
+<div class="p-4 border rounded">
+    <table id="tblData" class="table table-striped table-bordered" style="width:100%">
+        <thead class="thead-dark">
+            <tr class="table-info">
+                <th>Movie</th>
+                <th>Room</th>
+                <th>Start Time</th>
+                <th>Date</th>
+                <th>Cost</th>
+                <th>Seats</th>
+                <th>Paid</th>
+                <th>Canceled</th>
+                <th>Buy Tickets</th>
+                <th>Cancel reservation</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/userBookings.js"></script>
+}
+
+

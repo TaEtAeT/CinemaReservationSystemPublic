@@ -1,0 +1,120 @@
+﻿@model CinemaReservationSystem.Models.News
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create News";
+}
+
+
+<form method="post"  enctype="multipart/form-data">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Id != 0)
+        {
+            //edit
+            title = "Edit News";
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Title"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ShortDescription"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="ShortDescription" class="form-control"></textarea>
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Content"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Date
+                </div>
+                <div class="col-8">
+                    <input autocomplete="off" type="text" class="datepicker form-control" asp-for="Date" data-date-format="mm/dd/yyyy">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Image
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" id="uploadBox" multiple class="form-control" asp-for="ImageUrl" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    @if (Model.Id != 0)
+                    {
+                        <partial name="_EditAndBackToList" model="Model.Id" />
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Create</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.Id != 0)
+        {
+            <div class="col-3 offset-1 pt-4">
+                <img src="@Model.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+        }
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.tiny.cloud/1/n94ifuzvl80pchikopiwgz2esrw8n28dwcywvpejlqrregfp/tinymce/5/tinymce.min.js"></script>
+    <script>
+        $('document').ready(function () {
+            $('.datepicker').datepicker();
+        });
+        </script>
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'lists',
+                menubar: 'file edit format'
+            });
+            function validateInput() {
+                if (document.getElementById("uploadBox").value == "") {
+                swal("Error", "Please select an image", "error");
+                    return false;
+                }
+                return true;
+            };
+    </script>
+}

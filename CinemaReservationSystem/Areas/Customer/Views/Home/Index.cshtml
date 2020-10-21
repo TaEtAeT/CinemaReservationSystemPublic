@@ -1,0 +1,80 @@
+﻿@model CinemaReservationSystem.Models.ViewModels.PlayingNowVM.PlayingNowVM
+@using System.Web.Mvc.Ajax;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //AjaxOptions ajaxOptions = new AjaxOptions
+    //{
+    //    HttpMethod = "GET",
+    //    InsertionMode = InsertionMode.Replace,
+    //    UpdateTargetId = "partial-view"
+
+    //};
+
+
+}
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link href="~/css/modal.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+
+
+
+
+<body>
+    <div class="content-container">
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-5 col-sm-12 section-title">
+
+
+                    <i class="arrow right"></i>
+
+                    <div class="section-title__title">Playing Now</div>
+                </div>
+                <div class="col-md-6 col-sm-12 section-title">
+                    <i class="arrow right"></i>
+                    <div class="section-title__title">Sort By</div>
+                    <div style="padding-left:10px;">
+                        <form method="post" id="form">
+                            <span asp-validation-for="@Model.GenresList" class="text-danger"></span>
+                            <select id="GenresList" class="form-control" asp-for="@Model.GenreId" asp-items="@Model.GenresList">
+                                <option value="-1">All categories</option>
+                            </select>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+            <div id="partial-view">
+                <partial name="_PlayingNowMovies" model="Model" />
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+   
+
+
+    var select = document.getElementById("GenresList");
+    $('select').on('change', function () {
+      //alert(select.value);
+        $.ajax({
+            url: '/Customer/Home/Sort',
+            type: 'get',
+            data: {
+                genreId: select.value
+            },
+            dataType: 'html',
+            success: function (data) {
+                $('#partial-view').html(data);
+            }
+
+        });
+    });
+</script>

@@ -1,0 +1,141 @@
+﻿@model CinemaReservationSystem.Models.ViewModels.ScreeningVM.UpsertVM
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    </head>
+
+
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        var title = "Create Screening";
+    }
+
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="row p-3 border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Screening.Id != 0)
+            {
+                //edit
+                title = "Edit Screening";
+                <input type="hidden" asp-for="Screening.Id" />
+            }
+            <div class="col-12 border-bottom">
+                <h2 class="text-primary">@title</h2>
+            </div>
+            <div class="col-8 pt-4">
+                <div class="form-group row">
+                    <div class="col-4">
+                        Movie
+                    </div>
+                    <div class="col-8">
+                        @Html.DropDownListFor(m => m.Screening.MovieId, Model.MovieList, "-Select a Movie",
+                       new { @class = "form-control" })
+                        <span asp-validation-for="Screening.MovieId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        Date
+                    </div>
+                    <div class="col-8">
+                        <input autocomplete="off" type="text" class="datepicker" asp-for="Screening.Date" class="form-control" data-date-format="mm/dd/yyyy">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        Auditorium
+                    </div>
+                    <div class="col-8">
+                        @Html.DropDownListFor(a => a.Screening.AuditoriumId, Model.AuditoriumList, "-Select an Auditorium",
+                       new { @class = "form-control" })
+                        <span asp-validation-for="Screening.AuditoriumId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        Start Time
+                    </div>
+                    <div class="col-8">
+                        @Html.DropDownListFor(m => m.Screening.ScreeningStart, Model.ListOfTimeIntervals, "-Select a Time",
+                       new { @class = "form-control" })
+                        <span asp-validation-for="Screening.ScreeningStart" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Screening.TicketPrice"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Screening.TicketPrice" class="form-control" />
+                        <span asp-validation-for="Screening.TicketPrice" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Screening.isPreview"></label>
+                    </div>
+                    <div class="col-8">
+                   
+                            <input style="height:auto; width:15px;" asp-for="Screening.isPreview" type="checkbox" class="form-control" value="true" />
+                            <span  asp-validation-for="Screening.isPreview" class="text-danger"></span>
+              
+           
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                        @if (Model.Screening.Id != 0)
+                        {
+                            <partial name="_EditAndBackToList" model="Model.Screening.Id" />
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Create</button>
+                                </div>
+                                <div class="col">
+                                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+<script>
+    $('document').ready(function () {
+        $('.datepicker').datepicker();
+    });
+</script>
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+        <script src="https://cdn.tiny.cloud/1/n94ifuzvl80pchikopiwgz2esrw8n28dwcywvpejlqrregfp/tinymce/5/tinymce.min.js"></script>
+
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'lists',
+                menubar: 'file edit format'
+            });
+            function validateInput() {
+                if (document.getElementById("uploadBox").value == "") {
+                    swal("Error", "Please select an image", "error");
+                    return false;
+                }
+                return true;
+            };
+        </script>
+
+        @*combobox*@
+
+
+    }

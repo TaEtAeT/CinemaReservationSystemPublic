@@ -1,0 +1,11 @@
+﻿.news-container {
+    display: flex;
+    flex-direction: column;
+}
+.news-container > div{
+    margin-bottom:20px;
+}
+.news-container__image{
+    width:100%;
+    height:auto;
+}

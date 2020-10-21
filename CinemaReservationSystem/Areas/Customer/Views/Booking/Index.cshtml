@@ -1,0 +1,312 @@
+﻿@model CinemaReservationSystem.Models.ViewModels.BookingVM.BookingVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/booking.css" />
+<body onload="onLoaderFunc()">
+    <h2>Book seats for: @Model.Screening.Movie.Title</h2>
+    <p style="display:none" id ="price">@Model.Screening.TicketPrice</p>
+    <div class="container">
+        <div class="row seats-area-container">
+            <div class="col-12">
+                <div class="col-12 seats-area">
+                    <div class="inputForm">
+                        <center>
+                            <button class="btn btn-light" onclick="takeData()">Start Selecting</button>
+                        </center>
+                    </div>
+
+
+                    <div>
+                        <center style="background-color:white;">
+                            <div class="seats-area__seat-structure">
+
+                                <div class="seatStructure">
+
+                                    <div class="screen">SCREEN</div>
+
+                                    <div>
+                                        <div style="display:flex; flex-direction:column">
+
+                                            <div style="display:flex; flex-direction:row;">
+                                                <div class="seats-area__row-letters">
+                                                    <div></div>
+                                                    @foreach (var rowLetter in Model.ListOfRows)
+                                                    {
+                                                        <div>
+                                                            @rowLetter
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                                <div style="display:flex; flex-direction:column">
+                                                    <div style="display:flex; flex-direction:row; justify-content: space-between;">
+                                                        <div>1</div>
+                                                        <div>2</div>
+                                                        <div>3</div>
+                                                        <div>4</div>
+                                                        <div>5</div>
+                                                        <div>6</div>
+                                                        <div>7</div>
+                                                        <div>8</div>
+                                                        <div>9</div>
+                                                        <div>10</div>
+                                                    </div>
+                                                    @foreach (var seatArray in Model.ListOfOrderedSeats)
+                                                    {
+
+                                                        <div style="display:flex; flex-direction:row;">
+
+                                                            @foreach (var seat in seatArray)
+                                                            {
+
+                                                                <div>
+                                                                    <div id="seatsBlock" >
+                                                                        <div id="seatCode">
+                                                                            @if (Model.ListOfIdsForReservedSeats.Contains(seat.Id))
+                                                                            {
+                                                                                <div id="seatsIdBlock"style=" height:20px;padding-top:9px;">
+                                                                                   
+                                                                                            <div class="reserved-seat"></div>
+
+                                                                                </div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div id="seatsIdBlock">
+                                                                                    <div style="display:none" id="code">@seat.Code</div>
+                                                                                    <input type="checkbox" class="seats" value="@seat.Id">
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                    
+
+                                                                </div>
+                                                            }
+
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </center>
+
+                    </div>
+
+                    <br />
+                    <div>
+                        <button class="btn btn-light" onclick="updateTextArea()">Confirm Selection</button>
+                    </div>
+
+                </div>
+            </div>
+            @*end of first row*@
+            <div class="col-lg-6 col-md-6 col-sm-12 seat-legend ">
+               
+                    <div class="smallBox greenBox">Selected Seat</div> <br />
+                    <div class="smallBox redBox">Reserved Seat</div><br />
+                    <div class="smallBox emptyBox">Empty Seat</div><br />
+                </div>
+            </div>
+        </div>
+    
+  
+    <div class="container movie-cart-area-container">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="movie-cart-container">
+                    <div>
+                        <div class="movie-cart__img-container">
+                            <img id="myImg" src="@Model.Screening.Movie.ImageUrl" class="rounded img" />
+                        </div>
+                    </div>
+                    <div class="movie-cart-details-area">
+                        <div class="movie-cart-details-container">
+                            <div class="movie-cart-details">
+                                <div>
+                                  <b>Title: </b> @Model.Screening.Movie.Title
+                                </div>
+                                <div>
+                                   <b>Genre: </b> @Model.Screening.Movie.Genre.Name
+                                </div>
+                                <div style="display:flex;" class="displayerBoxes">
+                                    <div>
+                                        <b>Auditorium: </b>  @Model.Screening.Auditorium.Name
+                                    </div>
+                                    <div>
+                                        <b>Start Time: </b>  @Model.Screening.ScreeningStart
+                                    </div>
+                                    <div>
+                                        <b>Day: </b> @Model.Screening.Date
+                                    </div>
+                                    <div>
+
+
+                                        <b>Number of seats: </b><p id="NumberDisplay"></p>
+                                    </div>
+                                    <div>
+                                        <b>Seats: </b><p id="seatsDisplay"></p>
+                                    </div>
+                                    <div style="display:none" >
+                                       <textarea id="seatsIds"></textarea>
+                                    </div>
+
+                                </div>
+                                <div >
+                                    <b>Price: </b> <b><p id="totalPrice"></p></b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+@{
+
+    string[] seats = new string[] { };
+                                                string csvSeats = string.Join(",", seats);
+
+}
+<p> Complete Booking: </p>
+<button onclick=sendData() class="btn btn-secondary">Reserve</button>
+@*<form action="" method="post">
+        <input type="submit" name="upvote" value="Upvote" />
+    </form>*@
+@*<a asp-area="Customer" asp-action="Book" asp-controller="Booking" asp-route-screeningId="@Model.Screening.Id" asp-route-seats="@csvSeats" asp-ro class="btn btn-secondary">Reserve</a>*@
+@*data has to be the screening and the seat*@
+<button class="btn btn-primary">Buy Now</button>
+
+
+
+
+<script>
+    function onLoaderFunc() {
+        $(".seatStructure *").prop("disabled", true);
+        $(".displayerBoxes *").prop("disabled", true);
+    }
+    function takeData() {
+
+        $(".inputForm *").prop("disabled", true);
+        $(".seatStructure *").prop("disabled", false);
+        document.getElementById("notification").innerHTML = "<b style='margin-bottom:0px;background:yellow;'>Please Select your Seats now!</b>";
+
+    }
+
+
+    function updateTextArea() {
+
+        if ($("input:checked").length != 0) {
+            $(".seatStructure *").prop("disabled", true);
+
+            var allNameVals = [];
+            var allNumberVals = [];
+            var allSeatsVals = [];
+            //added
+            var allSeatsIds = [];
+
+          
+            var ticketPrice = parseInt($('#price').text(), 10);
+            var noSeats = $("input:checked").length;
+            var totalPrice = (ticketPrice * noSeats).toString() + ' $';
+
+            //Storing in Array
+            allNameVals.push($("#Username").val());
+            allNumberVals.push($("#Numseats").val());
+            $('#seatsIdBlock :checked').each(function () {
+                allSeatsIds.push($(this).val());
+                allSeatsVals.push(($(this).closest("div").find('#code')).text());
+
+            });
+
+            //Displaying
+            $('#nameDisplay').val(allNameVals);
+            $('#NumberDisplay').text(document.querySelectorAll('input[type="checkbox"]:checked').length);
+            $('#seatsDisplay').text(allSeatsVals);
+            $('#seatsIds').val(allSeatsIds);
+            $('#totalPrice').text(totalPrice);
+        }
+        else {
+            alert("Please select at least one seat")
+        }
+    }
+
+
+    function myFunction() {
+        alert($("input:checked").length);
+    }
+
+    /*
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    */
+
+
+    $(":checkbox").click(function () {
+        if ($("input:checked").length == ($("#Numseats").val())) {
+            $(":checkbox").prop('disabled', true);
+            $(':checked').prop('disabled', false);
+        }
+        else {
+            $(":checkbox").prop('disabled', false);
+        }
+    });
+
+    function sendData() {
+
+        if (!($('#seatsDisplay').text())) {
+            alert("Please select at least one seat!");
+
+        }
+        else {
+                    var allSeatsVals = document.getElementById("seatsIds").value;
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: window.location.origin + "/Customer/Booking/Book",
+            data: {
+                screeningId: "@Model.Screening.Id",
+                seatsList:allSeatsVals
+            },
+            success: function (data) {
+                if (data.success) {
+                    toastr.success(data.message);
+                    dataTable.ajax.reload();
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+        }
+    }
+
+</script>

@@ -1,0 +1,76 @@
+﻿@model CinemaReservationSystem.Models.ViewModels.ScreeningVM.DetailsVM
+@*should receive a list of screenings for the same moovie*@
+
+<div class="container ">
+    <div class="row movie-details-container">
+        <div class="col-lg-4 col-md-6 col-sm-12  ">
+            <div>
+                <div class="movie-details__img-container">
+                    <img id="myImg" src="@Model.Movie.ImageUrl" class="rounded img" />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12  ">
+            <div class="movie-cart-details-area">
+                <div class="movie-cart-details-container">
+                    <div class="movie-cart-details">
+                        <div>
+                            <b>Title: </b> @Model.Movie.Title
+                        </div>
+                        <div>
+                            <b>Director: </b>   @Model.Movie.Director
+                        </div>
+                        <div>
+                            <b>Genre: </b> @Model.Movie.Genre.Name
+                        </div>
+                        <div>
+                            <b>Runtime:</b>   @Model.Movie.RuntimeText
+                        </div>
+                        <div style="display:flex;" class="displayerBoxes">
+                            <div>
+                                <b>Description: </b>      @Html.Raw(Model.Movie.Description)
+                            </div>
+                            <div style="display:none">
+                                <textarea id="seatsIds"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<div class="p-4 border rounded">
+    <table id="tblData" class="table table-striped table-bordered" style="width:100%">
+        <thead class="thead-dark">
+            <tr class="table-info">
+                <th>Start Time</th>
+                <th>Date</th>
+                <th>Room</th>
+                <th>Ticket Price</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            loadDataTable(@Model.Movie.Id);
+
+        });
+    </script>
+    <script src="~/js/movieDetails.js"></script>
+
+
+}

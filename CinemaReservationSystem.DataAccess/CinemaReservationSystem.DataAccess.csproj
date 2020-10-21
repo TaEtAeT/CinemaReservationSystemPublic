@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200822143147_AddMovie.cs" />
+    <Compile Remove="Migrations\20200822143147_AddMovie.Designer.cs" />
+    <Compile Remove="Migrations\20200822151528_AddMovie.cs" />
+    <Compile Remove="Migrations\20200822151528_AddMovie.Designer.cs" />
+    <Compile Remove="Migrations\20200822182425_AddMovieAndGenre.cs" />
+    <Compile Remove="Migrations\20200822182425_AddMovieAndGenre.Designer.cs" />
+    <Compile Remove="Migrations\20200822184155_AddMovieAndGenreMigration.cs" />
+    <Compile Remove="Migrations\20200822184155_AddMovieAndGenreMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200823151006_AddImageUrlToMoviesMigration.cs" />
+    <Compile Remove="Migrations\20200823151006_AddImageUrlToMoviesMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200823153616_AddImageUrlToMovieMigration.cs" />
+    <Compile Remove="Migrations\20200823153616_AddImageUrlToMovieMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200824132709_AddAuditoriumMovieMigration.cs" />
+    <Compile Remove="Migrations\20200824132709_AddAuditoriumMovieMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200825072553_AddPlicayingNowMigration.cs" />
+    <Compile Remove="Migrations\20200825072553_AddPlicayingNowMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200825081127_AddMovieGenreAuditoriumScreeningSeatMigration.cs" />
+    <Compile Remove="Migrations\20200825081127_AddMovieGenreAuditoriumScreeningSeatMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200825122832_AddMovieGenreAuditoriumScreeningSeatMigration.cs" />
+    <Compile Remove="Migrations\20200825122832_AddMovieGenreAuditoriumScreeningSeatMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200827104418_AddUserPropertiesMigration.cs" />
+    <Compile Remove="Migrations\20200827104418_AddUserPropertiesMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200831103349_AddAmountToPayToReservationMigration.cs" />
+    <Compile Remove="Migrations\20200831103349_AddAmountToPayToReservationMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200901121725_AllowNullOnSeatMigration.cs" />
+    <Compile Remove="Migrations\20200901121725_AllowNullOnSeatMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200901122910_A.cs" />
+    <Compile Remove="Migrations\20200901122910_A.Designer.cs" />
+    <Compile Remove="Migrations\20200901151529_Test.cs" />
+    <Compile Remove="Migrations\20200901151529_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200915101636_last.cs" />
+    <Compile Remove="Migrations\20200915101636_last.Designer.cs" />
+    <Compile Remove="Migrations\20200928123913_AllowNullForReservedSeatsInReservation.cs" />
+    <Compile Remove="Migrations\20200928123913_AllowNullForReservedSeatsInReservation.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaReservationSystem.Models\CinemaReservationSystem.Models.csproj" />
+    <ProjectReference Include="..\CinemaReservationSystem.Utility\CinemaReservationSystem.Utility.csproj" />
+  </ItemGroup>
+
+</Project>
